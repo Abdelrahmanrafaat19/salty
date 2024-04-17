@@ -7,6 +7,7 @@ import 'package:responsive/controller/login/repo/login_repo_impl.dart';
 
 import 'package:responsive/controller/register/bloc/cubit.dart';
 import 'package:responsive/controller/register/repo/register_repo_implr.dart';
+import 'package:responsive/module/profile/profile.dart';
 
 import 'package:responsive/module/splach_screen.dart';
 
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child: const SplachScreen(),
+      child: const ProfileScreen(),
     );
   }
 }
