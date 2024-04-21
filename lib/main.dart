@@ -2,27 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:responsive/controller/login/bloc/cubit.dart';
 import 'package:responsive/controller/login/repo/login_repo_impl.dart';
+import 'package:responsive/controller/profile/bloc/profile_cubit.dart';
+import 'package:responsive/controller/profile/repo/profile_repo_imple.dart';
 
 import 'package:responsive/controller/register/bloc/cubit.dart';
 import 'package:responsive/controller/register/repo/register_repo_implr.dart';
+import 'package:responsive/module/home_screen.dart';
 import 'package:responsive/module/profile/profile.dart';
 
 import 'package:responsive/module/splach_screen.dart';
 
+import 'module/edit_profile/edit_profile.dart';
 import 'shared/locator.dart';
 
-void main() {
+void main() async {
   setUp();
+  await Hive.initFlutter("my_token");
+  await Hive.openBox<String>("my_token").then(
+    (value) => debugPrint("The My_Token is Created"),
+  );
   runApp(
-    const MyApp(),
+    MyApp(),
   );
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key});
+  var hiveBox = Hive.box<String>("my_token");
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -42,6 +53,11 @@ class MyApp extends StatelessWidget {
                 getit.get<LoginRepoImplement>(),
               ),
             ),
+            BlocProvider(
+              create: (context) => ProfileCubit(
+                getit.get<ProfileRepoImpl>(),
+              ),
+            )
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -59,7 +75,11 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child: const ProfileScreen(),
+      child:
+          const EditProfileScreen() /* hiveBox.get("token") == null
+          ? const SplachScreen()
+          : const HomeScreen() */
+      ,
     );
   }
 }

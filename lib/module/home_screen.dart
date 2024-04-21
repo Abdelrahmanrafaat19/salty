@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive/layout/bottom_navigatin_bar.dart';
 import 'package:responsive/module/ctegores.dart';
+import 'package:responsive/module/profile/profile.dart';
 import 'package:responsive/shared/component/custom_text.dart';
 import 'package:responsive/shared/component/offer_containers.dart';
 import 'package:responsive/shared/component/stack_container.dart';
@@ -72,18 +73,23 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
-          Container(
-            margin: EdgeInsets.only(left: width * (10 / width)),
-            alignment: Alignment.center,
-            width: width * (40 / width),
-            height: height * (40 / height),
-            decoration: BoxDecoration(
-                color: SharedColor.whiteColor,
-                borderRadius: BorderRadius.circular(width * (10 / width))),
-            child: Icon(
-              Icons.save_outlined,
-              color: SharedColor.greyColor,
-              size: width * (30 / width),
+          InkWell(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const ProfileScreen(),
+            )),
+            child: Container(
+              margin: EdgeInsets.only(left: width * (10 / width)),
+              alignment: Alignment.center,
+              width: width * (40 / width),
+              height: height * (40 / height),
+              decoration: BoxDecoration(
+                  color: SharedColor.whiteColor,
+                  borderRadius: BorderRadius.circular(width * (10 / width))),
+              child: Icon(
+                Icons.save_outlined,
+                color: SharedColor.greyColor,
+                size: width * (30 / width),
+              ),
             ),
           )
         ],

@@ -10,4 +10,19 @@ class ApiServer {
 
     return response.data;
   }
+
+  Future<Map<String, dynamic>> getProfilData(
+      {required String endPoint, String? token}) async {
+    var response = await dio.get(
+      "$baseUrl/$endPoint",
+      options: Options(
+          headers: token != null
+              ? {
+                  'Authorization': 'Bearer $token',
+                }
+              : null),
+    );
+
+    return response.data;
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:responsive/controller/login/bloc/cubit.dart';
 import 'package:responsive/controller/login/bloc/state.dart';
 import 'package:responsive/module/code_screen.dart';
@@ -22,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  var hiveBox = Hive.box<String>("my_token");
   @override
   Widget build(BuildContext context) {
     var widthOnly = MediaQuery.of(context).size.width;
@@ -152,6 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           } else if (state is LoginSuccesState) {
                             if (state.data["status"] == true) {
+                              hiveBox
+                                  .put("token", state.data["data"]["token"])
+                                  .then((value) => print(hiveBox.get("token")));
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const HomeScreen(),
                               ));

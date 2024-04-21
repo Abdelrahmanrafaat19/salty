@@ -34,7 +34,78 @@ class _SignUpScreenState extends State<SignUpScreen> {
     var height = MediaQuery.of(context).orientation == Orientation.landscape
         ? MediaQuery.of(context).size.width
         : MediaQuery.of(context).size.height;
-    return BlocBuilder<RegisterCubit, RegisterState>(builder: (context, state) {
+    return BlocConsumer<RegisterCubit, RegisterState>(
+        listener: (context, state) {
+      if (state is SucessRegisterState) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ));
+      } else if (state is FailureRegisterState) {
+        showDialogMethod(
+          context: context,
+          content: const Text(
+            "هذه البيانات موجودة من قبل",
+            style: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 15,
+            ),
+          ),
+          actions: [
+            // usually buttons at the bottom of the dialog
+            TextButton(
+              child: const Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        /* showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return AlertDialog(
+              content: const Text(
+                "هذه البيانات موجودة من قبل",
+                style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 15,
+                ),
+              ),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                TextButton(
+                  child: const Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        ); */
+      } else if (state is LoadinRegisterState) {
+        showDialogMethod(
+            context: context,
+            content: const Center(
+              child: Card(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ));
+        /*  showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return const AlertDialog(
+                content: Center(
+              child: CircularProgressIndicator(),
+            ));
+          },
+        ); */
+      }
+    }, builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
           leading: Padding(
@@ -192,49 +263,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           "password": _passwordController.text,
                           "c_password": _confirmPasswordController.text,
                         });
-                        if (state is SucessRegisterState) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ));
-                        } else if (state is FailureRegisterState) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              // return object of type Dialog
-                              return AlertDialog(
-                                content: const Text(
-                                  "هذه البيانات موجودة من قبل",
-                                  style: TextStyle(
-                                    color: Colors.deepPurple,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  // usually buttons at the bottom of the dialog
-                                  TextButton(
-                                    child: const Text("Close"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              // return object of type Dialog
-                              return SizedBox(
-                                height: 100.h,
-                                width: 100.w,
-                                child: const Center(
-                                    child: CircularProgressIndicator()),
-                              );
-                            },
-                          );
-                        }
                       }
                     },
                   ),
@@ -320,5 +348,18 @@ Widget containerWithImage(
     width: width,
     decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(pass), fit: BoxFit.fitWidth)),
+  );
+}
+
+Future showDialogMethod(
+    {required BuildContext context,
+    required Widget content,
+    List<Widget>? actions}) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      // return object of type Dialog
+      return AlertDialog(content: content, actions: actions);
+    },
   );
 }
