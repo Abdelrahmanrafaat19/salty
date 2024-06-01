@@ -7,8 +7,6 @@ import 'package:responsive/controller/profile/bloc/profile_state.dart';
 import 'package:responsive/module/profile/widget/profile_buttons.dart';
 import 'package:responsive/module/profile/widget/profile_form.dart';
 import 'package:responsive/module/profile/widget/profile_image.dart';
-import 'package:responsive/shared/component/custom_form_field.dart';
-import 'package:responsive/shared/component/custome_button.dart';
 import 'package:responsive/shared/theme/color.dart';
 
 class ProfileScreen extends StatefulWidget {

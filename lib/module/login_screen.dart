@@ -125,10 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   custamButtom(
                       color: SharedColor.greenColor,
-                      text: customText(
-                          text: "تسجيل الدخول",
-                          color: SharedColor.whiteColor,
-                          fontSize: 20.sp),
+                      text: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: customText(
+                            text: "تسجيل الدخول",
+                            color: SharedColor.whiteColor,
+                            fontSize: 20.sp),
+                      ),
                       paddingHersontal: 130.w,
                       paddingVertical: 15.h,
                       onTap: () async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive/module/change_password_Screen.dart';
 import 'package:responsive/shared/component/custome_button.dart';
 import 'package:responsive/shared/theme/color.dart';
 
@@ -28,7 +29,13 @@ class PofileButtons extends StatelessWidget {
               ),
               paddingHersontal: 15.w,
               paddingVertical: 5.h,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ChangePasswordScreen(),
+                  ),
+                );
+              },
             ),
             SizedBox(
               width: 10.w,

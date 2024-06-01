@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive/layout/bottom_navigatin_bar.dart';
@@ -8,6 +7,7 @@ import 'package:responsive/shared/component/custom_text.dart';
 import 'package:responsive/shared/component/offer_containers.dart';
 import 'package:responsive/shared/component/stack_container.dart';
 import 'package:responsive/shared/component/the_most_container.dart';
+import 'package:responsive/shared/responsive_text.dart';
 import 'package:responsive/shared/theme/color.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: customText(
                             text: "البحث عن المنتجات",
                             color: SharedColor.greyColor,
-                            fontSize: width * 0.05,
+                            fontSize: getResponsiveFont(context, fontSize: 20),
                             fontWeight: FontWeight.bold),
                       ),
                       suffixIcon: IconButton(

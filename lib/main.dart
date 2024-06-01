@@ -1,19 +1,18 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:responsive/controller/login/bloc/cubit.dart';
 import 'package:responsive/controller/login/repo/login_repo_impl.dart';
 import 'package:responsive/controller/profile/bloc/profile_cubit.dart';
 import 'package:responsive/controller/profile/repo/profile_repo_imple.dart';
-
 import 'package:responsive/controller/register/bloc/cubit.dart';
 import 'package:responsive/controller/register/repo/register_repo_implr.dart';
+import 'package:responsive/module/home_screen.dart';
 import 'package:responsive/module/login_screen.dart';
-
-import 'module/edit_profile/edit_profile.dart';
 import 'shared/locator.dart';
 
 void main() async {
@@ -22,8 +21,12 @@ void main() async {
   await Hive.openBox<String>("my_token").then(
     (value) => debugPrint("The My_Token is Created"),
   );
+
   runApp(
-    MyApp(),
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(), // Wrap your app
+    ),
   );
 }
 
@@ -72,11 +75,9 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child:
-          const LoginScreen() /* hiveBox.get("token") == null
-          ? const SplachScreen()
-          : const HomeScreen() */
-      ,
+      child: hiveBox.get("token") == null
+          ? const LoginScreen()
+          : const HomeScreen(),
     );
   }
 }
