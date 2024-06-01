@@ -5,8 +5,17 @@ class ApiServer {
   Dio dio;
   ApiServer(this.dio);
   Future<Map<String, dynamic>> postProfileData(
-      {required Map<String, dynamic> data, required String endPoint}) async {
-    var response = await dio.post("$baseUrl/$endPoint", data: data);
+      {required Map<String, dynamic> data,
+      required String endPoint,
+      String? token}) async {
+    var response = await dio.post("$baseUrl/$endPoint",
+        data: data,
+        options: Options(
+            headers: token != null
+                ? {
+                    'Authorization': 'Bearer $token',
+                  }
+                : null));
 
     return response.data;
   }

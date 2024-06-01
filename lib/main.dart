@@ -7,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:responsive/controller/login/bloc/cubit.dart';
 import 'package:responsive/controller/login/repo/login_repo_impl.dart';
+import 'package:responsive/controller/profile/bloc/change_password_bloc/change_password_cubit.dart';
 import 'package:responsive/controller/profile/bloc/profile_cubit.dart';
+import 'package:responsive/controller/profile/repo/change_password_repo/change_password_Repo_imple.dart';
 import 'package:responsive/controller/profile/repo/profile_repo_imple.dart';
 import 'package:responsive/controller/register/bloc/cubit.dart';
 import 'package:responsive/controller/register/repo/register_repo_implr.dart';
@@ -56,6 +58,11 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => ProfileCubit(
                 getit.get<ProfileRepoImpl>(),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => ChangePasswordCubit(
+                getit.get<ChangePasswordRepoImple>(),
               ),
             )
           ],
