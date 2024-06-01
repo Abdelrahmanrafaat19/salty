@@ -5,8 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:responsive/controller/cart/cart_model/cart_model.dart';
 import 'package:responsive/controller/login/bloc/cubit.dart';
 import 'package:responsive/controller/login/repo/login_repo_impl.dart';
+import 'package:responsive/controller/product/product_cubit/product_cubit.dart';
+import 'package:responsive/controller/product/product_repo/product_repo_imple.dart';
 import 'package:responsive/controller/profile/bloc/change_password_bloc/change_password_cubit.dart';
 import 'package:responsive/controller/profile/bloc/profile_cubit.dart';
 import 'package:responsive/controller/profile/repo/change_password_repo/change_password_Repo_imple.dart';
@@ -20,6 +23,10 @@ import 'shared/locator.dart';
 void main() async {
   setUp();
   await Hive.initFlutter("my_token");
+  Hive.registerAdapter(CartProductDataAdapter());
+  await Hive.openBox<CartProductData>("cart_box").then(
+    (value) => debugPrint("The CartBox is Created"),
+  );
   await Hive.openBox<String>("my_token").then(
     (value) => debugPrint("The My_Token is Created"),
   );
@@ -64,7 +71,12 @@ class MyApp extends StatelessWidget {
               create: (context) => ChangePasswordCubit(
                 getit.get<ChangePasswordRepoImple>(),
               ),
-            )
+            ),
+            BlocProvider(
+              create: (context) => ProductCubit(
+                getit.get<ProductRepoImple>(),
+              ),
+            ),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive/shared/component/custom_text.dart';
+import 'package:responsive/shared/responsive_text.dart';
 import 'package:responsive/shared/theme/color.dart';
 
+import '../model/product_model/product_model/product.dart';
+
 class CategouriesScreen extends StatefulWidget {
-  const CategouriesScreen({super.key});
+  final List<Product> product;
+  const CategouriesScreen({super.key, required this.product});
 
   @override
   State<CategouriesScreen> createState() => _CategouriesScreenState();
@@ -115,7 +119,7 @@ class _CategouriesScreenState extends State<CategouriesScreen> {
         ),
         child: Center(
           child: GridView.builder(
-            itemCount: 12,
+            itemCount: widget.product.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 0.8,
                 crossAxisCount:
@@ -141,9 +145,10 @@ class _CategouriesScreenState extends State<CategouriesScreen> {
                             : 5.w),
                     alignment: Alignment.topCenter,
                     child: customText(
-                        text: "فواكة",
-                        color: SharedColor.blackColor,
-                        fontSize: 30.sp),
+                      text: widget.product[index].name.toString(),
+                      color: SharedColor.blackColor,
+                      fontSize: getResponsiveFont(context, fontSize: 30),
+                    ),
                   )),
                   Positioned(
                       left: 0.0,

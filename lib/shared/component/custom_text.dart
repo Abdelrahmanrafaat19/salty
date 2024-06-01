@@ -9,6 +9,7 @@ Widget customText(
   return Text(
     text,
     style: TextStyle(
+        overflow: TextOverflow.ellipsis,
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,
