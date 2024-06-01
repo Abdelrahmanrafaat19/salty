@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive/shared/theme/color.dart';
 
+// ignore: must_be_immutable
 class ProfileForm extends StatelessWidget {
   String name, phoneNumber, email;
   ProfileForm(

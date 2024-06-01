@@ -15,5 +15,5 @@ class SharedColor {
   static const Color thgrey = Color(0xff736c8b);
   static const Color bottomBarColor = Color(0xff736c8b);
   static const Color greyBackGround = Color(0xffededed);
-  static const Color cartColor = Color(0xffFF737373);
+  static const Color cartColor = Color(0xff737373);
 }

@@ -18,7 +18,7 @@ Widget pagesPageView({
   var height = MediaQuery.of(context).orientation == Orientation.landscape
       ? MediaQuery.of(context).size.width
       : MediaQuery.of(context).size.height;
-  print(height);
+  debugPrint(height.toString());
   return SingleChildScrollView(
       child: MediaQuery.of(context).orientation == Orientation.portrait
           ? Column(

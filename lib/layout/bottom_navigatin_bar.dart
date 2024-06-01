@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
     var height = MediaQuery.of(context).orientation == Orientation.landscape
         ? MediaQuery.of(context).size.width
         : MediaQuery.of(context).size.height;
-    print("the Heigt is $height   the weidth is $width");
+    debugPrint("the Heigt is $height   the weidth is $width");
     return Scaffold(
         body: widget.page,
         bottomNavigationBar: ConvexAppBar(
