@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive/module/single_product.dart';
 import 'package:responsive/shared/component/custom_text.dart';
 import 'package:responsive/shared/responsive_text.dart';
 import 'package:responsive/shared/theme/color.dart';
@@ -129,63 +130,72 @@ class _CategouriesScreenState extends State<CategouriesScreen> {
                 mainAxisSpacing: 10.h,
                 crossAxisSpacing: 15.w),
             itemBuilder: (context, index) {
-              return Container(
-                width: 100.w,
-                decoration: BoxDecoration(
-                    color: SharedColor.whiteColor,
-                    borderRadius: BorderRadius.circular(15)),
-                child: Stack(children: [
-                  Positioned(
-                      child: Container(
-                    margin: EdgeInsets.only(top: 15.h),
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? 25.h
-                            : 5.w),
-                    alignment: Alignment.topCenter,
-                    child: customText(
-                      text: widget.product[index].name.toString(),
-                      color: SharedColor.blackColor,
-                      fontSize: getResponsiveFont(context, fontSize: 30),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProductDetailsScreen(
+                      product: widget.product[index],
                     ),
-                  )),
-                  Positioned(
-                      left: 0.0,
-                      right: 0.0,
-                      bottom: 0.0,
-                      child: Container(
-                        height: 65.h,
-                        alignment: Alignment.topCenter,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(15.r),
-                                bottomRight: Radius.circular(15.r)),
-                            image: const DecorationImage(
-                                fit: BoxFit.cover,
-                                image:
-                                    AssetImage("assets/fruits_category.jpg"))),
-                      )),
-                  Positioned(
-                    top: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? 110.h
-                        : 70.w,
-                    left: 50.w,
-                    right: 50.w,
-                    child: CircleAvatar(
-                      radius: 45.r,
-                      backgroundColor: SharedColor.whiteColor,
+                  ));
+                },
+                child: Container(
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                      color: SharedColor.whiteColor,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Stack(children: [
+                    Positioned(
+                        child: Container(
+                      margin: EdgeInsets.only(top: 15.h),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).orientation ==
+                                  Orientation.portrait
+                              ? 25.h
+                              : 5.w),
+                      alignment: Alignment.topCenter,
+                      child: customText(
+                        text: widget.product[index].name.toString(),
+                        color: SharedColor.blackColor,
+                        fontSize: getResponsiveFont(context, fontSize: 30),
+                      ),
+                    )),
+                    Positioned(
+                        left: 0.0,
+                        right: 0.0,
+                        bottom: 0.0,
+                        child: Container(
+                          height: 65.h,
+                          alignment: Alignment.topCenter,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(15.r),
+                                  bottomRight: Radius.circular(15.r)),
+                              image: const DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                      "assets/fruits_category.jpg"))),
+                        )),
+                    Positioned(
+                      top: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? 110.h
+                          : 70.w,
+                      left: 50.w,
+                      right: 50.w,
                       child: CircleAvatar(
-                          radius: 35.r,
-                          backgroundColor: Colors.yellow,
-                          child: const Image(
-                            image: AssetImage("assets/category_icon.png"),
-                            fit: BoxFit.fill,
-                          )),
+                        radius: 45.r,
+                        backgroundColor: SharedColor.whiteColor,
+                        child: CircleAvatar(
+                            radius: 35.r,
+                            backgroundColor: Colors.yellow,
+                            child: const Image(
+                              image: AssetImage("assets/category_icon.png"),
+                              fit: BoxFit.fill,
+                            )),
+                      ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
               );
             },
           ),

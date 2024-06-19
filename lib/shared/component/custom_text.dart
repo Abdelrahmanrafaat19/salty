@@ -5,11 +5,12 @@ Widget customText(
     required Color color,
     required double fontSize,
     FontWeight? fontWeight,
-    String? fontFamily}) {
+    String? fontFamily,
+    TextOverflow? overflow = TextOverflow.ellipsis}) {
   return Text(
     text,
     style: TextStyle(
-        overflow: TextOverflow.ellipsis,
+        overflow: overflow,
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,

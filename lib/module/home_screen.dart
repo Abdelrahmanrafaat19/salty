@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive/controller/product/product_cubit/product_cubit.dart';
 import 'package:responsive/layout/bottom_navigatin_bar.dart';
+import 'package:responsive/module/cart.dart';
 import 'package:responsive/module/ctegores.dart';
 import 'package:responsive/module/profile/profile.dart';
 import 'package:responsive/shared/component/custom_text.dart';
@@ -47,15 +48,20 @@ class _HomeScreenState extends State<HomeScreen> {
               flexibleSpace: const FlexibleSpaceBar(),
               elevation: 0.0,
               backgroundColor: Colors.transparent,
-              leading: Container(
-                padding: EdgeInsets.all(width * (5 / width)),
-                decoration: const BoxDecoration(
-                    color: SharedColor.whiteColor, shape: BoxShape.circle),
-                child: const ClipOval(
-                    child: Image(
-                  image: AssetImage("assets/BoDa.jpg"),
-                  fit: BoxFit.fill,
+              leading: GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
                 )),
+                child: Container(
+                  padding: EdgeInsets.all(width * (5 / width)),
+                  decoration: const BoxDecoration(
+                      color: SharedColor.whiteColor, shape: BoxShape.circle),
+                  child: const ClipOval(
+                      child: Image(
+                    image: AssetImage("assets/BoDa.jpg"),
+                    fit: BoxFit.fill,
+                  )),
+                ),
               ),
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               actions: [
                 InkWell(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
+                    builder: (context) => const CartScreen(),
                   )),
                   child: Container(
                     margin: EdgeInsets.only(left: width * (10 / width)),

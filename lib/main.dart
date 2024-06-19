@@ -1,10 +1,9 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:responsive/controller/cart/cart_cubit/cubit/add_to_cart_cubit.dart';
 import 'package:responsive/controller/cart/cart_model/cart_model.dart';
 import 'package:responsive/controller/login/bloc/cubit.dart';
 import 'package:responsive/controller/login/repo/login_repo_impl.dart';
@@ -18,6 +17,7 @@ import 'package:responsive/controller/register/bloc/cubit.dart';
 import 'package:responsive/controller/register/repo/register_repo_implr.dart';
 import 'package:responsive/module/home_screen.dart';
 import 'package:responsive/module/login_screen.dart';
+import 'controller/cart/cart_cubit/get_cart_data_cubit/get_cart_data_cubit.dart';
 import 'shared/locator.dart';
 
 void main() async {
@@ -32,10 +32,11 @@ void main() async {
   );
 
   runApp(
-    DevicePreview(
+    /*   DevicePreview(
       enabled: !kReleaseMode,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
+      builder: (context) => */
+    MyApp(), // Wrap your app
+    // ),
   );
 }
 
@@ -76,6 +77,12 @@ class MyApp extends StatelessWidget {
               create: (context) => ProductCubit(
                 getit.get<ProductRepoImple>(),
               ),
+            ),
+            BlocProvider(
+              create: (context) => AddCartDataCubit(),
+            ),
+            BlocProvider(
+              create: (context) => GetCartDataCubit()..fetchAllNotes(),
             ),
           ],
           child: MaterialApp(

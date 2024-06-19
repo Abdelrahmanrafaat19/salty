@@ -3,7 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive/shared/component/custom_text.dart';
 import 'package:responsive/shared/theme/color.dart';
 
-Widget horizontalContainer(BuildContext context) {
+Widget horizontalContainer(BuildContext context,
+    {required String name,
+    required String image,
+    required dynamic quantity,
+    required dynamic price,
+    required dynamic size,
+    required void Function()? increment,
+    required void Function()? decrement,
+    required void Function()? deletFun}) {
   return Container(
     margin: EdgeInsets.only(bottom: 10.h),
     width: double.infinity,
@@ -14,56 +22,72 @@ Widget horizontalContainer(BuildContext context) {
         color: SharedColor.whiteColor,
         borderRadius: BorderRadius.circular(15.r)),
     child: Row(children: [
-      Container(
-        margin: EdgeInsets.only(right: 10.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              Icons.add,
-              color: SharedColor.blackColor,
-              size: 30.w,
-            ),
-            customText(
-              text: "1",
-              color: SharedColor.blackColor,
-              fontSize: 25.sp,
-            ),
-            Icon(
-              Icons.remove,
-              color: SharedColor.blackColor,
-              size: 30.w,
-            ),
-          ],
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.only(right: 10.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: increment,
+                child: Icon(
+                  Icons.add,
+                  color: SharedColor.blackColor,
+                  size: 30.w,
+                ),
+              ),
+              customText(
+                text: "$quantity",
+                color: SharedColor.blackColor,
+                fontSize: 25.sp,
+              ),
+              GestureDetector(
+                onTap: decrement,
+                child: Icon(
+                  Icons.remove,
+                  color: SharedColor.blackColor,
+                  size: 30.w,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      Container(
-          width: 120.w,
-          margin: EdgeInsets.only(right: 10.w),
-          decoration: const BoxDecoration(
-            color: SharedColor.whiteColor,
-          )),
-      Container(
-        margin: EdgeInsets.only(right: 10.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            customText(
-              text: "3500\$x1",
-              color: SharedColor.greenColor,
-              fontSize: 20.sp,
-            ),
-            customText(
-                text: "كمثري امريكي",
+      Expanded(
+        flex: 5,
+        child: Container(
+          margin: EdgeInsets.only(right: 10.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              customText(
+                text: "$price",
+                color: SharedColor.greenColor,
+                fontSize: 20.sp,
+              ),
+              customText(
+                  text: "$name",
+                  color: SharedColor.blackColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold),
+              customText(
+                text: "$size",
                 color: SharedColor.blackColor,
                 fontSize: 20.sp,
-                fontWeight: FontWeight.bold),
-            customText(
-              text: "1KG",
-              color: SharedColor.blackColor,
-              fontSize: 20.sp,
-            ),
-          ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      Expanded(
+        child: GestureDetector(
+          onTap: deletFun,
+          child: Icon(
+            Icons.delete,
+            color: SharedColor.blackColor,
+            size: 30.w,
+          ),
         ),
       ),
     ]),
